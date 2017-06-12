@@ -392,6 +392,26 @@ public class BluetoothOppUtility {
         }
     }
 
+    // Custom class to remove special characters from Intent.toString()
+    static class CustomIntent extends Intent {
+
+        public CustomIntent(String actionView) {
+            super(actionView);
+        }
+
+        @Override
+        public String toString() {
+            if (V) Log.v(TAG, " Intent Info :" + super.toString());
+            if(super.toString().length() != super.toString().getBytes().length) {
+                if (V) Log.v(TAG, "Removed special characters from path");
+                // Replace all special characters while returning  string.
+                return  super.toString().replaceAll("[^\\x00-\\x7F]", "");
+            } else {
+                return super.toString();
+            }
+        }
+    }
+
     /**
      * Checks if the URI is in Environment.getExternalStorageDirectory() as it
      * is the only directory that is possibly readable by both the sender and
