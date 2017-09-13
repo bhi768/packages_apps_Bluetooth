@@ -755,7 +755,7 @@ public class HeadsetClientStateMachine extends StateMachine {
     }
 
     static int amToHfVol(int amVol) {
-        int amRange = mMaxAmVcVol - mMinAmVcVol;
+        int amRange = (mMaxAmVcVol > mMinAmVcVol) ? (mMaxAmVcVol - mMinAmVcVol) : 1;
         if (amRange <= 0) {
             Log.e(TAG, "ERROR: amRange is less than or equal to zero: " + amRange);
             amRange = 1;
